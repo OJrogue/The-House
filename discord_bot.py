@@ -4,7 +4,11 @@ from game import Game
 # insert your bot token
 token = ''
 
-client = discord.Client()
+intents = discord.Intents.default()
+intents.message_content = True
+intents.members = True
+
+client = discord.Client(intents=intents)
 
 games = {}
 
@@ -25,7 +29,8 @@ async def on_message(message):
     text = games[message.author.id].com(message.content)
 
     embedVar = discord.Embed(description=text)
-    embedVar.set_author(name=message.author.name,icon_url=message.author.avatar_url)
+    embedVar.set_author(name=message.author.name,
+                        icon_url=message.author.avatar)
 
     await message.channel.send(embed=embedVar)
 
